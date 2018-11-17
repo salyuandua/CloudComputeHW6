@@ -2,7 +2,7 @@
 
     <div class="content">
     
-      <a class="header" th:href="@{/restaurant?id=}+${res.restaurant_id}"  th:text="${res.name}" target="oppo_view"></a>
+      <a class="header" th:href="@{/restaurant?id=}+${res.restaurant_id}"  th:text="${res.name}+'(ID:'+${res.restaurant_id}+')'" th:target="${res.restaurant_id}+'view'"></a>
       <div class="ui label" style="margin-left: 1%" th:text="${res.cuisine}"></div>
 
       <div class="meta">
@@ -23,7 +23,7 @@
 		
       </div>
       <div class="extra">
-		    <button class="ui icon red button" >
+		    <button class="ui icon red button" th:data-id="${res.restaurant_id}">
   				<i class="trash icon"></i>
 			</button>
       </div>

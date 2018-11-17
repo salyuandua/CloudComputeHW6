@@ -23,8 +23,28 @@ import static com.mongodb.client.model.Projections.*;
 import edu.marshall.cs651.db.DBUtils;
 
 public class QueryDao {
+private MongoCollection<Document> collection;
+public QueryDao() {
+	collection=DBUtils.getCollection("restaurants", "restaurants");
+}
 	
 private SimpleDateFormat sDateFormat=new SimpleDateFormat("MMM dd yyyy",Locale.US);
+
+/**
+ * data is existing with id
+ * @param id
+ * @return
+ */
+public boolean isExisting(String id) {
+	Document doc=collection.find(eq("restaurant_id", id)).first();
+	if(doc==null) {
+		return false;
+	}
+	return true;
+	
+}
+
+
 private void computAverageScore(Document doc) {
 	List<Document> grades=(List<Document>) doc.get("grades");
 	//System.out.println(JSON.toJSONString(grades));
@@ -51,7 +71,7 @@ private void computAverageScore(Document doc) {
 	
 	
 	public List<Document> queryRestaurants4List(Map<String, String> param) {
-		MongoCollection<Document> collection=DBUtils.getCollection("restaurants", "restaurants");
+		
 		
 		SearchCondition sc=new SearchCondition();
 		sc.addEqCondition("restaurant_id", param.get("id"));
@@ -85,9 +105,7 @@ private void computAverageScore(Document doc) {
 	
 	public static void main(String[] args) {
 		QueryDao d=new QueryDao();
-		List<Document> l= d.queryRestaurants4List(new HashMap<>());
-		
-		System.out.println(com.alibaba.fastjson.JSON.toJSONString(l.get(0)));
+		d.isExisting("3007545");
 	}
 	
 	

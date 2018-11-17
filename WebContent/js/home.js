@@ -93,8 +93,37 @@ $(function(){
 			}
 			
 		});
+		//==================================================delete
+		$(".ui.icon.red.button").click(function(){
+			//confirm id existing
+			var id=$(this).attr("data-id");
+			$.ajax({
+				url:"delete?action=checkId",
+				method:"POST",
+				data:{"id":id},
+				success:function(data){
+					if(data){
+						
+					}else{//data is not existing
+						
+						
+						
+						
+					}
+					
+					
+				},
+				error:function(){
+					
+				}
+				
+				
+			});
+			
+		});
 		
-
+		
+		
 		
 		
 		
