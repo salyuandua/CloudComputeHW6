@@ -1,0 +1,31 @@
+  <div class="item" th:each="res : ${list}">
+
+    <div class="content">
+    
+      <a class="header" th:href="@{/restaurant?id=}+${res.restaurant_id}"  th:text="${res.name}" target="oppo_view"></a>
+      <div class="ui label" style="margin-left: 1%" th:text="${res.cuisine}"></div>
+
+      <div class="meta">
+        <i class=" map marker alternate icon"></i>
+        <span class="cinema" th:text="${res.address.building}+' '+${res.address.street}+', '+${res.borough}+', '+${res.address.zipcode}"></span>
+        
+      </div>
+	 <div class="meta">
+        <strong>Average Score:</strong>
+        <span class="cinema" th:text="${res.averageGrade}"></span>
+        
+      </div>	
+		
+		
+      <div class="description">
+		
+		
+		
+      </div>
+      <div class="extra">
+		    <button class="ui icon red button" >
+  				<i class="trash icon"></i>
+			</button>
+      </div>
+    </div>
+  </div>

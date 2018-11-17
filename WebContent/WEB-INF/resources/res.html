@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title th:text="${res.name}"></title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/semantic.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/image.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/icon.min.css}">
+</head>
+<body>
+
+<div class="ui grid">
+<div class="sixteen wide column">
+<div class="ui center aligned segment">
+<h1 class="ui blue header">Restaurants</h1>
+</div>
+
+
+
+
+</div>
+
+
+  <div class="ten wide column">
+  <!-- information area          -->
+  	<div class="ui segment">
+  	
+<div class="ui tiny blue statistic">
+  <div class="value" th:text="${res.name}">
+   
+  </div>
+
+</div>
+
+<div class="ui large label" th:text="${res.cuisine}">
+ 
+</div>
+
+  	<div class="ui tiny statistic">
+    <div class="value">
+      <i class="map marker alternate icon"></i> <span th:text="${res.address.building}+' '+${res.address.street}+', '+${res.borough}+', '+${res.address.zipcode}"></span>
+    </div>
+
+  </div>
+  	
+  	<!-- --comment -->
+  	<div class="ui comments">
+  <h3 class="ui dividing header">Comments</h3>
+  
+  <div class="comment" th:each="grade : ${res.grades}">
+      <a class="avatar">
+      <img src="images/male.jpg">
+    </a>
+      <div class="content">
+     
+      <div class="metadata">
+        <span class="date" th:text="${grade.showDate}"></span>
+      </div>
+      <div class="text" >
+        <div><strong >Grade:</strong><span th:text="${grade.grade}"> </span></div>
+         <strong >Score:</strong><span th:text="${grade.score}"> </span>
+      </div>
+
+    </div>
+  
+  
+  </div>
+  
+  
+  </div>
+    <form class="ui reply form">
+    <div class="two fields">
+      <div class="field">
+      <label>Grade:</label>
+      <div class="ui selection dropdown">
+	  <input type="hidden" name="grade">
+	  <i class="dropdown icon"></i>
+	  <div class="default text">Grade</div>
+	  <div class="menu">
+	    <div class="item" data-value="A">A</div>
+	    <div class="item" data-value="B">B</div>
+	    <div class="item" data-value="C">C</div>
+	  </div>
+	</div>
+      </div>
+      <div class="field">
+      <label>Score:</label>
+      <input type="number" name="score"/>
+      </div>
+    </div>
+    <div th:data-id="${res.restaurant_id}" class="ui blue labeled submit icon button ">
+      <i class="icon edit"></i> Add Reply
+    </div>
+  </form>
+  	</div>
+  
+  </div>
+  <div class="six wide column">
+  <div class="ui segment">
+  <div id="map" style="height:450px"></div>
+  
+  </div>
+  </div>
+  
+  
+  </div>
+
+
+
+</body>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/semantic.min.js}"></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSdz_ZI9f08EFT0BOhZcijJ37_tPh-6tQ&callback=goMap&language=en"></script>
+<script type="text/javascript" th:inline="javascript">
+$(function(){
+	$(".ui.selection.dropdown").dropdown();
+	
+	$(".ui.blue.labeled.submit.icon.button").click(function(){
+		var button=$(this);
+		var formData={};
+		formData.id=$(this).attr("data-id");
+		if($("input[name=grade]").val()===""){
+			alert("Please select grade!");
+			return;
+			
+		}
+		formData.grade=$("input[name=grade]").val();
+		//console.log($("input[name=score]").val())
+		if($("input[name=score]").val()===""){
+			alert("Please enter score!");
+			return;
+		}
+		if($("input[name=score]").val()<0){
+			alert("Score must be equal or greater than 0!");
+			return;
+		}
+		if($("input[name=score]").val()>100){
+			alert("Score must be less than 100!");
+			return;
+		}
+		formData.score=$("input[name=score]").val();
+		$.ajax({
+			url:"reply",
+			method:"POST",
+			data:formData,
+			beforeSend:function(){
+				button.addClass("disabled").addClass("loading");
+			},
+			success:function(){
+				button.removeClass("disabled").removeClass("loading");
+			},
+			error:function(){
+				button.removeClass("disabled").removeClass("loading");
+			}
+			
+		});
+		
+		
+		
+	});
+	
+	
+	
+	//=====================map===========================
+    var lat=[[${res.address.coord[1]}]];
+    var lng=[[${res.address.coord[0]}]];
+    var position = {lat: lat, lng: lng};
+    //console.log(position);
+    
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: position,
+        zoom: 10
+      });
+    var marker = new google.maps.Marker({
+        position: position,
+        map: map
+        
+      });
+   
+   
+});
+
+</script>    
+</html>

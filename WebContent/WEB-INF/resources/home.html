@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/semantic.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/image.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/icon.min.css}">
+
+</head>
+<body>
+<div class="ui blue large borderless fixed fluid pointing  menu">
+   
+	
+  <div  class="item">
+		<h1 class="ui blue header">Restaurants</h1>
+   </div>
+<div class="ui form">
+	<div class="fields">
+		<div class="three wide field">
+		<label>Restaurant ID:</label>
+			<input type="text" placeholder="Restaurant ID" name="id"/>
+		</div>
+		<div class="four wide field">
+		<label>Restaurant Name:</label>
+			<input type="text" placeholder="Restaurant Name" name="res_name"/>
+		</div>
+		<div class="field">
+		<label>Cuisine</label>
+		<input type="text" placeholder="Cuisine" name="cuisine"/>
+		</div>
+		<div class="field">
+		<label>Address:</label>
+		<div class="four fields">
+			<div class="three wide field">
+				<input type="text" placeholder="Building" name="building"/>
+			</div>
+			<div class="three wide field">
+				<input type="text" placeholder="borough" name="borough"/>
+			</div>
+			<div class="field">
+				<input type="text" placeholder="Street" name="street"/>
+			</div>
+			
+			
+			<div class="three wide field">
+				<input type="text" placeholder="Zip" name="zip"/>
+			</div>
+			
+			
+			
+		</div>	
+		
+		
+		
+		</div>
+
+		
+		
+		
+		<div class="field">
+		<button id="search" class="ui blue icon  button" style="margin-top: 50%">
+		  <i class="search icon"></i>
+		  
+		</button>
+		</div>
+		<div class="field">
+		<button class="ui  icon button" style="margin-top: 50%">
+		  <i class="x icon"></i>
+		</button>
+		</div>
+	</div>
+</div>
+
+     </div>
+
+<!-- content -->
+<div class="ui stacked  segment" style="margin-top: 7%">
+
+<!-- ----------------------------------------res list -->
+<div class="ui divided items">
+
+</div>
+
+
+<h4 class="ui horizontal divider header" >
+
+</h4>
+<div class="ui centered inline loader"></div>
+
+</div>
+
+
+
+
+</body>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/semantic.min.js}"></script>
+<script type="text/javascript" src="js/home.js"></script>
+</html>
