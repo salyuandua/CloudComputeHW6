@@ -14,6 +14,8 @@ import org.bson.Document;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import com.alibaba.fastjson.JSON;
+
 import edu.marshall.cs651.dao.QueryDao;
 @WebServlet(urlPatterns= {"/list"})
 public class RestaurantListServlet extends HttpServlet{
@@ -29,7 +31,7 @@ public class RestaurantListServlet extends HttpServlet{
 			throws ServletException, IOException {
 		
 		List<Document> docs=dao.queryRestaurants4List(new RequestParamWrapper(req.getParameterMap()).getStandardParam());
-		
+		//System.out.println(JSON.toJSONString(docs));
 		
 		WebContext webContext=new WebContext(req, resp, req.getServletContext());
 		webContext.setVariable("list", docs);

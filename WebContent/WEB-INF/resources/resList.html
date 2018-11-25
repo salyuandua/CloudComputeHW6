@@ -3,11 +3,11 @@
     <div class="content">
     
       <a class="header" th:href="@{/restaurant?id=}+${res.restaurant_id}"  th:text="${res.name}+'(ID:'+${res.restaurant_id}+')'" th:target="${res.restaurant_id}+'view'"></a>
-      <div class="ui label" style="margin-left: 1%" th:text="${res.cuisine}"></div>
+      <div th:if="${res.cuisine!=null}" class="ui label" style="margin-left: 1%" th:text="${res.cuisine}!=null?${res.cuisine}"></div>
 
       <div class="meta">
         <i class=" map marker alternate icon"></i>
-        <span class="cinema" th:text="${res.address.building}+' '+${res.address.street}+', '+${res.borough}+', '+${res.address.zipcode}"></span>
+        <span class="cinema" th:text="(${res.address.building}!=null?${res.address.building}:'')+' '+(${res.address.street}!=null?${res.address.street}:'')+' '+(${res.borough}!=null?','+${res.borough}:'')+' '+(${res.address.zipcode}!=null?','+${res.address.zipcode}:'')"></span>
         
       </div>
 	 <div class="meta">

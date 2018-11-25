@@ -12,7 +12,7 @@ public SearchCondition() {
 
 public void addLikeCondition(String attrName,String value) {
 	if(value!=null&&!value.equals("")) {
-		param.put(attrName, Pattern.compile("/"+value+"/"));
+		param.put(attrName, Pattern.compile("^.*"+value+".*$"));
 	}
 	
 }

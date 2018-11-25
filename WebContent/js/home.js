@@ -1,56 +1,63 @@
 $(function(){
+	
+	//oppo type dropdown
+	$("#oppo_type_drop").dropdown();
+	$(".ui.dropdown.item").dropdown();
+	//tab
+	$(".ui.pointing.secondary.blue.menu.item").tab();
+	
+	var page=1;
+	var allDataLoaded=false;
+	var formData={};
 	//======================search
 	$("#search").click(function(){
-		var formData={};
+		formData={};
+		page=1;
 		$.each($(".ui.form").find("input"),function(i,k){
-			if($(k).val()!=""){
+			if($(k).is("input[type=text]")&&$(k).val()!=""){
 				var key=$(k).attr("name");
 				var value=$(k).val();
 				formData[key]=value;
 			}
-			
+			if($(k).is("input[type=checkbox]")&&$(k).parent(".ui.checkbox").checkbox('is checked')){
+				var key=$(k).attr("name");
+				var value=true;
+				formData[key]=value;
+
+			}
 		});
+		
+		
+		
 		console.log(formData);
 		
+		loadList(true);
 		
 		
 	});
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		//oppo type dropdown
-		$("#oppo_type_drop").dropdown();
-		//tab
-		$(".ui.pointing.secondary.blue.menu.item").tab();
-		
-		
-		var allDataLoaded=false;
-		function loadList(){
-			var listLength=$('.ui.divided.items').children(".item").length;
-			var from=listLength;
-			var end=listLength+20;
+
+		function loadList(isInit){
 			$(".ui.centered.inline.loader").addClass("active");
+			formData.page=page;
 			$.ajax({
 				url:"list",
 				method:"POST",
-				data:{'from':from,'end':end},
+				data:formData,
 				success:function(data){
+					if(isInit){
+						$('.ui.divided.items').children().remove();
+					}
+					
+					
 					$('.ui.divided.items').append(data);
-					if($(data).length<20){
+					if($(data).length<5){
 						allDataLoaded=true;
 						$(".ui.horizontal.divider.header").html("No More Data");
 					}
 					$(".ui.centered.inline.loader").removeClass("active");
+					page++;
 				},
 				error:function(){
 					$(".ui.centered.inline.loader").removeClass("active");
@@ -66,7 +73,7 @@ $(function(){
 		$.ajax({
 			url:"list",
 			method:"POST",
-			data:{from:0,end:20},
+			data:{"page":page},
 			success:function(data){
 				$(".ui.divided.items").append(data);
 				//inifnite load
@@ -79,7 +86,7 @@ $(function(){
 				    onBottomVisible: function() {
 
 				     if(!allDataLoaded){
-				    	 loadList();
+				    	 loadList(false);
 				    	 
 				    	 
 				     }	
@@ -121,6 +128,33 @@ $(function(){
 			});
 			
 		});
+		
+		
+		//=========================================add 
+		$(".ui.green.icon.button").click(function(){
+			$(".ui.fullscreen.modal").modal({
+				closeable:false,
+				onDeny:function(){
+					return true;
+				},
+				onApprove:function(){
+					
+					
+				}
+				
+				
+			}).modal("show");
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

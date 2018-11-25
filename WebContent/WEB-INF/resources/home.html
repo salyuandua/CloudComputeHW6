@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Restaurants</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/semantic.min.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/image.min.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/icon.min.css}">
@@ -15,6 +15,7 @@
   <div  class="item">
 		<h1 class="ui blue header">Restaurants</h1>
    </div>
+
 <div class="ui form">
 	<div class="fields">
 		<div class="three wide field">
@@ -23,7 +24,7 @@
 		</div>
 		<div class="four wide field">
 		<label>Restaurant Name:</label>
-			<input type="text" placeholder="Restaurant Name" name="res_name"/>
+			<input type="text" placeholder="Restaurant Name" name="name"/>
 		</div>
 		<div class="field">
 		<label>Cuisine</label>
@@ -44,16 +45,70 @@
 			
 			
 			<div class="three wide field">
-				<input type="text" placeholder="Zip" name="zip"/>
-			</div>
-			
-			
-			
+				<input type="text" placeholder="Zip" name="zipcode"/>
+			</div>	
 		</div>	
-		
-		
-		
 		</div>
+     <div class="ui dropdown item">
+    Projection <i class="dropdown icon"></i>
+    <div class="menu">
+      <div class="item">
+      <div class="ui checkbox disabled">
+		  <input type="checkbox" disabled="disabled" checked="checked" name="check_restaurant_id">
+		  <label>ID</label>
+	</div>
+	</div>
+      <div class="item">
+      <div class="ui checkbox disabled">
+		  <input type="checkbox" disabled="disabled" checked="checked" name="check_name">
+		  <label>Name</label>
+	</div>
+	</div>
+	      <div class="item">
+      <div class="ui checkbox">
+		  <input type="checkbox" checked="checked" name="check_cuisine">
+		  <label>Cuisine</label>
+	</div>
+	</div>
+	<div class="item">
+      <div class="ui checkbox">
+		  <input type="checkbox" checked="checked" name="check_address.building">
+		  <label>Building</label>
+	</div>
+	</div>
+		<div class="item">
+      <div class="ui checkbox">
+		  <input type="checkbox" checked="checked" name="check_address.borough">
+		  <label>Borough</label>
+	</div>
+	</div>
+		<div class="item">
+      <div class="ui checkbox">
+		  <input type="checkbox" checked="checked" name="check_address.street">
+		  <label>Street</label>
+	</div>
+	</div>
+		<div class="item">
+      <div class="ui checkbox">
+		  <input type="checkbox" checked="checked" name="check_address.zipcode">
+		  <label>Zipcode</label>
+	</div>
+	</div>
+    </div>
+  </div>
+		<!--  <div class="field">
+		<label>Projection</label>
+		<div class="ui selection dropdown">
+		  <input type="hidden" name="projection">
+		  <i class="dropdown icon"></i>
+		  <div class="default text">All</div>
+		  <div class="menu">
+		    <div class="item" data-value="1">Male</div>
+		    <div class="item" data-value="0">Female</div>
+		  </div>
+		</div>
+		
+		</div>-->
 
 		
 		
@@ -65,8 +120,8 @@
 		</button>
 		</div>
 		<div class="field">
-		<button class="ui  icon button" style="margin-top: 50%">
-		  <i class="x icon"></i>
+		<button class="ui green icon button" style="margin-top: 50%">
+		  <i class="plus icon"></i>
 		</button>
 		</div>
 	</div>
@@ -108,6 +163,89 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- ===========================================add restaurant================================== -->
+<div  class="ui fullscreen modal">
+
+  <div class="header" >
+    Add Restaurant
+  </div>
+  <div class="content" style="background-color: #DADADA;">
+		<div class="ui form" >
+			<div class="ui piled segment" >
+			  <div class=" field">
+    				
+    					<div class="three fields">
+    						
+    						
+    						<div class=" required field">
+    							<label>Restaurant ID:</label>
+    							<input type="text" name="id"/>
+    							
+    						</div>
+    						 <div class=" required field">
+    							<label>Restaurant Name:</label>
+    							<input type="text" name="name"/>
+    							
+    						</div>
+    	<div class="required field">
+		<label>Address:</label>
+		<div class="four fields">
+			<div class="four wide field">
+				<input type="text" placeholder="Building" name="building"/>
+			</div>
+			<div class="four wide field">
+				<input type="text" placeholder="borough" name="borough"/>
+			</div>
+			<div class="field">
+				<input type="text" placeholder="Street" name="street"/>
+			</div>
+			
+			
+			<div class="four wide field">
+				<input type="text" placeholder="Zip" name="zipcode"/>
+			</div>	
+		</div>	
+		</div>
+    						
+    						
+    					
+    					</div>
+    		  </div>
+			
+			<div class="field">
+				<div class="three fields">
+					<div class="field">
+						<label>Cuisine:</label>
+						<input type="text" name="cuisine"/>
+					</div>
+				</div>
+			
+			
+			</div>
+			
+			
+			
+			
+			</div>
+			</div>
+			</div>
+	
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
 
 
 

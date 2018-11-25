@@ -60,7 +60,7 @@ private void computAverageScore(Document doc) {
 	
 	for(Document grade:grades) {
 		gradeSum+=grade.getInteger("score", 0);
-		System.out.println(grade.get("date"));
+		//System.out.println(grade.get("date"));
 		
 	}
 	int average=gradeSum/grades.size();
@@ -68,19 +68,49 @@ private void computAverageScore(Document doc) {
 	
 }
 	
-	
+	/**
+	 * 
+	 * @param param
+	 * @return
+	 */
 	
 	public List<Document> queryRestaurants4List(Map<String, String> param) {
 		
-		
+		//add search condition
 		SearchCondition sc=new SearchCondition();
 		sc.addEqCondition("restaurant_id", param.get("id"));
 		sc.addLikeCondition("name", param.get("name"));
-		FindIterable<Document> findIterable= collection.find(sc.getCondition());
+		sc.addLikeCondition("cuisine", param.get("cuisine"));
+		sc.addLikeCondition("address.building", param.get("building"));
+		sc.addLikeCondition("address.street", param.get("street"));
+		sc.addLikeCondition("address.zipcode", param.get("zipcode"));
 		
-		if(param.get("from")!=null&&!param.get("from").equals("")) {
-			int from=Integer.parseInt(param.get("from"));
-			findIterable= findIterable.skip(from).limit(20);
+		//add projection condition
+		List<String> fieldNames=new ArrayList<String>();
+		
+		param.entrySet().forEach(e->{
+			if(e.getKey().contains("check")) {
+				String fieldName=e.getKey().substring(6, e.getKey().length());
+				//System.out.println(fieldName);
+				fieldNames.add(fieldName);
+			}
+			
+		});
+		if(fieldNames.size()>0) {
+			fieldNames.add("grades");
+		}
+		System.out.println(JSON.toJSONString(fieldNames));
+		FindIterable<Document> findIterable= collection.find(sc.getCondition()).projection(include(fieldNames));
+		
+
+		
+		
+		
+		
+		
+		if(param.get("page")!=null&&!param.get("page").equals("")) {
+			int page=Integer.parseInt(param.get("page"));
+			findIterable= findIterable.skip((page-1)*5).limit(5);
 		}
 		
 		
